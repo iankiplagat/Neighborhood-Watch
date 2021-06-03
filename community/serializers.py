@@ -10,5 +10,11 @@ class UserSerializer(serializers.ModelSerializer):
     
 class NeighbourhoodSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Neighbourhood
-    fields = ('name', 'location')    
+    model = Neighborhood
+    fields = ('name', 'location')  
+    
+    
+class BusinessSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Business
+    fields = ('name', 'email')      
