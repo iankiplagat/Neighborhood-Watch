@@ -31,7 +31,7 @@ class Neighborhood(models.Model):
 class User(models.Model):
     name = models.CharField(max_length=50)
     email = models. EmailField()
-    neighbourhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
 
     def __str__(self):
       return self.name
