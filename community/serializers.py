@@ -6,3 +6,9 @@ class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     exclude = ['neighbourhood']
+    
+    
+class NeighbourhoodSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Neighbourhood
+    fields = ('name', 'location')    
