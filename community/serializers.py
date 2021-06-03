@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     exclude = ['neighbourhood']
     
     
-class NeighbourhoodSerializer(serializers.ModelSerializer):
+class NeighborhoodSerializer(serializers.ModelSerializer):
   class Meta:
     model = Neighborhood
     fields = ('name', 'location')  
