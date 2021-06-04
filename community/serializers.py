@@ -23,4 +23,13 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
     fields = "__all__" 
     
     
+    
+class ProfileSerializer(serializers.ModelSerializer):
+  # user=UserSerializer(read_only=True,many=False)
+  business = BusinessSerializer(many=True, read_only=True)
+
+  class Meta:
+    model = Profile
+    fields="__all__"    
+    
      

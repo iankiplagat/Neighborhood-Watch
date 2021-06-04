@@ -155,3 +155,36 @@ class UserList(APIView):
     users=self.get_users(pk)
     users.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+  
+  
+class ProfileList(APIView):
+  serializer_class=ProfileSerializer
+
+  def get_profile(self, pk):
+    try:
+        return Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
+        raise Http404()
+  
+  def get(self, request, format=None):
+    profile = Profile.objects.all()
+    serializers = self.serializer_class(profile, many=True)
+    return Response(serializers.data)
+
+  def put(self, request, pk, format=None):
+    profile = self.get_profile(pk)
+    serializers = self.serializer_class(profile, request.data)
+    if serializers.is_valid():
+      serializers.save()
+      profile_data = serializers.data
+      response = {
+          'data': {
+              'profile': dict(profile_data),
+              'status': 'success',
+              'message': 'profile updated successfully',
+          }
+      }
+      return Response(response, status=status.HTTP_200_OK)
+    else:
+      return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+  
