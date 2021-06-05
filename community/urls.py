@@ -11,9 +11,6 @@ urlpatterns=[
   path('api/profile/',views.ProfileList.as_view(),name='profiles'),
   path('api/post/',views.PostList.as_view(),name='post'),
   
-  path('api/user/<int:pk>/',views.UserList.as_view(),name='user'),
-  path('api/profile/<int:pk>/',views.ProfileList.as_view(),name='profile'),
-  
   #update urls
   path('api/update/profile/<int:pk>/',views.ProfileList.as_view(),name='update_profile'),
   path('api/update/users/<int:pk>/',views.UserList.as_view(),name='update_users'),

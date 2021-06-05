@@ -1,6 +1,6 @@
-from django.db.models import fields
 from rest_framework import serializers
 from .models import *
+from django import forms
 
 class BusinessSerializer(serializers.ModelSerializer):
   class Meta:
@@ -9,10 +9,10 @@ class BusinessSerializer(serializers.ModelSerializer):
     
     
 class UserSerializer(serializers.ModelSerializer):
-  business=BusinessSerializer(many=True,read_only=True)
+  email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
   class Meta:
     model = User
-    fields = "__all__"
+    fields = ['username','email','password']
     
     
 class NeighborhoodSerializer(serializers.ModelSerializer):
@@ -24,7 +24,6 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
     
     
 class ProfileSerializer(serializers.ModelSerializer):
-  # user=UserSerializer(read_only=True,many=False)
   business = BusinessSerializer(many=True, read_only=True)
 
   class Meta:
