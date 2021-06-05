@@ -57,10 +57,10 @@ class Profile(models.Model):
       
       
 class Business(models.Model):
-    business_name=models.CharField(max_length=50)
+    name=models.CharField(max_length=50)
     business_desc=models.TextField()
     profile=models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='business_user',null=True)
-    email=models.EmailField()
+    business_email=models.EmailField()
     neighborhood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
 
     def __str__(self):
