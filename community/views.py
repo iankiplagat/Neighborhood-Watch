@@ -6,6 +6,8 @@ from django.http import Http404
 from django.http import response
 from .models import *
 from .serializers import *
+from rest_framework import generics
+from rest_framework import filters
 
 # Create your views here.
 class NeighborhoodList(APIView):
@@ -238,5 +240,12 @@ class PostList(APIView):
   def delete(self, request, pk, format=None):
     post = self.get_post(pk)
     post.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)    
+    return Response(status=status.HTTP_204_NO_CONTENT)   
+  
+  
+class BusinessSearch(generics.ListAPIView):
+  queryset=Business.objects.all()
+  serializer_class=BusinessSerializer
+  filter_backends=(filters.SearchFilter)
+  search_fields=("name")   
   
