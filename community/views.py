@@ -10,6 +10,10 @@ from rest_framework import generics
 from rest_framework import filters
 
 # Create your views here.
+def home(request):
+    return render(request, 'home.html')
+
+# API
 class NeighborhoodList(APIView):
   def get_neighborhood(self, pk):
     try:

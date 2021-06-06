@@ -4,7 +4,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns=[
- #post and get urls
+  #home
+  path('', views.home, name='home'),
+  
+  #post and get urls
   path('api/hood/',views.NeighborhoodList.as_view(),name='neighbor'),
   path('api/business/',views.BusinessList.as_view(),name='business'),
   path('api/users/',views.UserList.as_view(),name='users'),
