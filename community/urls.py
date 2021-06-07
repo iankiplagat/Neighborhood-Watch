@@ -16,6 +16,10 @@ urlpatterns=[
   path('api/post/',views.PostList.as_view(),name='post'),
   
   path('api/hood/<int:pk>/',views.SinglehoodList.as_view(),name='neighbor_hood'),
+  path('api/business/<int:pk>/',views.SingleBusinessList.as_view(),name='single_business'),
+  path('api/user/<int:pk>/',views.SingleUserList.as_view(),name='single_user'),
+  path('api/profile/<int:pk>/',views.SingleProfileList.as_view(),name='single_profile'),
+  path('api/post/<int:pk>/',views.SinglePostList.as_view(),name='single_post'),
   
   # Authentication
   path('register/', views.Registration.as_view(), name="register"),

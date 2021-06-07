@@ -64,12 +64,11 @@ class LoginUser(APIView):
 
 # API
 class SinglehoodList(APIView):
-  def get(self, pk):
-    try:
-        return Neighborhood.objects.get(pk=pk)
-    except Neighborhood.DoesNotExist:
-        return Http404()
-
+  def get(self,request, pk, format=None):
+    neighborhood= Neighborhood.objects.get(pk=pk)
+    serializers=NeighborhoodSerializer(neighborhood)
+    return Response(serializers.data)
+      
 class NeighborhoodList(APIView):
   def get_neighborhood(self, pk):
     try:
@@ -120,6 +119,14 @@ class NeighborhoodList(APIView):
     neighborhood.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+class SingleBusinessList(APIView):
+  def get(self,request, pk, format=None):
+    business= Business.objects.get(pk=pk)
+    serializers=BusinessSerializer(business)
+    return Response(serializers.data)
+  
+  
 class BusinessList(APIView):
   def get_business(self, pk):
     try:
@@ -168,6 +175,13 @@ class BusinessList(APIView):
     business = self.get_business(pk)
     business.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+  
+  
+class SingleUserList(APIView):
+  def get(self,request, pk, format=None):
+    user= User.objects.get(pk=pk)
+    serializers=UserSerializer(user)
+    return Response(serializers.data)  
 
 class UserList(APIView):
   def get_users(self,pk):
@@ -220,6 +234,13 @@ class UserList(APIView):
     return Response(status=status.HTTP_204_NO_CONTENT)
   
   
+class SingleProfileList(APIView):
+  def get(self,request, pk, format=None):
+    profile= Profile.objects.get(pk=pk)
+    serializers=ProfileSerializer(profile)
+    return Response(serializers.data)  
+  
+  
 class ProfileList(APIView):
   serializer_class=ProfileSerializer
 
@@ -252,6 +273,13 @@ class ProfileList(APIView):
       return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
+class SinglePostList(APIView):
+  def get(self,request, pk, format=None):
+    post= Post.objects.get(pk=pk)
+    serializers=PostSerializer(post)
+    return Response(serializers.data)  
+  
+      
 class PostList(APIView):
   serializer_class = PostSerializer
   def get_post(self, pk):
