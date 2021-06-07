@@ -48,8 +48,6 @@ class Profile(models.Model):
   @receiver(post_save, sender=User)
   def save_user_profile(sender, instance, created=False, **kwargs):
       instance.profile.save()
-      if created:
-        Token.objects.create(user=instance)
 
   def save_user(self):
     self.save()

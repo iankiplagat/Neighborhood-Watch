@@ -10,28 +10,66 @@ from rest_framework import generics
 from rest_framework import filters
 from rest_framework.decorators import api_view
 from .permissions import IsAdminOrReadOnly
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
-  
-# @api_view(['POST',])
-# def registration_view(request):
+      
+class Registration(APIView):
+  serializer_class=UserSerializer
+
+  def post(self, request):
+      serializer=self.serializer_class(data=request.data)
+      serializer.is_valid(raise_exception=True)
+      serializer.save()
+
+      user=serializer.data
+
+      response={
+          "data":{
+              "user":dict(user),
+              "status":"Success",
+              "message":"User account created successfully"
+          }
+
+      }
+      return Response(response, status=status.HTTP_201_CREATED)
     
-#     if request.method == 'POST':
-#       serializers = UserSerializer(data=request.data)
-#       data = {}
-#       if serializers.is_valid():
-#         user = serializers.save()
-#         data['response'] = "Successfully registered a new user." 
-#         data['username'] = user.username
-#         data['email'] = user.email  
-#       else:
-#         data = serializers.errors
-#       return Response(data)  
+    
+class LoginUser(APIView):
+    serializer_class=LoginSerializer
+    authentication_classes=(TokenAuthentication,)
+    permission_classes=(IsAuthenticated,)
+
+        # login user
+    def post(self, request, format=None):
+        serializers=self.serializer_class(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            users=serializers.data
+
+            response={
+                "data":{
+                    "new_hood":dict(users),
+                    "status":"Success",
+                    "message":"User logged in successfully"
+                }
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 # API
+class SinglehoodList(APIView):
+  def get(self, pk):
+    try:
+        return Neighborhood.objects.get(pk=pk)
+    except Neighborhood.DoesNotExist:
+        return Http404()
+
 class NeighborhoodList(APIView):
   def get_neighborhood(self, pk):
     try:
