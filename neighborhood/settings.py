@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     
     # Dependencies
     'rest_framework',
+    'rest_framework.authtoken',
     'cloudinary',
     'cloudinary_storage',
     
@@ -56,6 +57,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME':"kasparov",

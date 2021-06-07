@@ -8,10 +8,28 @@ from .models import *
 from .serializers import *
 from rest_framework import generics
 from rest_framework import filters
+from rest_framework.decorators import api_view
+from .permissions import IsAdminOrReadOnly
+from rest_framework.authtoken.models import Token
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
+  
+# @api_view(['POST',])
+# def registration_view(request):
+    
+#     if request.method == 'POST':
+#       serializers = UserSerializer(data=request.data)
+#       data = {}
+#       if serializers.is_valid():
+#         user = serializers.save()
+#         data['response'] = "Successfully registered a new user." 
+#         data['username'] = user.username
+#         data['email'] = user.email  
+#       else:
+#         data = serializers.errors
+#       return Response(data)  
 
 # API
 class NeighborhoodList(APIView):
@@ -31,6 +49,7 @@ class NeighborhoodList(APIView):
     if serializers.is_valid():
       serializers.save()
       neighborhood=serializers.data
+      
       response = {
           'data': {
               'neighborhood': dict(neighborhood),
@@ -128,8 +147,8 @@ class UserList(APIView):
     serializers=UserSerializer(data=request.data)
     if serializers.is_valid():
       serializers.save()
-
       users=serializers.data
+      
       response={
         'data':{
           'users':dict(users),
