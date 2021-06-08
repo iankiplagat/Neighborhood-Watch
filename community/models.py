@@ -1,3 +1,4 @@
+from unittest.runner import TextTestResult
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -33,7 +34,7 @@ class Neighborhood(models.Model):
     
     
 class Profile(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+  user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', null=True)
   name = models.CharField(max_length=50)
   profile_pic = models.ImageField(upload_to='profile_photos/')
   email = models.EmailField()

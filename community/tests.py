@@ -43,8 +43,8 @@ class ProfileTestClass(TestCase):
     # Set up method
     def setUp(self):
         self.user = User()
-        self.neighborhood = Neighborhood()
         self.user.save()
+        self.neighborhood = Neighborhood()
         self.neighborhood.save()
         self.profile = Profile(user = self.user, name = 'name', 
                                profile_pic = 'img', email = 'test@gmail.com', 
@@ -75,5 +75,48 @@ class ProfileTestClass(TestCase):
         update=Profile.objects.get(user = self.user, name = 'name', 
                                    profile_pic = 'img', email = 'test@gmail.com', 
                                    neighborhood = self.neighborhood)
-        self.assertEqual(update.name,'name')                        
+        self.assertEqual(update.name,'name')       
         
+        
+class BusinessTestClass(TestCase):
+    # Set up method
+    def setUp(self):
+        self.profile = Profile()
+        self.profile.save()
+        self.neighborhood = Neighborhood()
+        self.neighborhood.save()
+        self.business = Business(name = 'name', business_desc = 'desc', 
+                                         profile = self.profile,
+                                         business_email = 'email',
+                                         neighborhood = self.neighborhood)
+        
+    # Testing instance
+    def test_instance(self):
+        self.assertTrue(isinstance(self.business,Business))
+        
+    # Testing Save Method
+    def test_save_method(self): 
+        self.business.save_business()
+        businesses = Business.objects.all()
+        self.assertTrue(len(businesses) > 0)
+        
+    def tearDown(self):
+        Business.objects.all().delete()
+        Profile.objects.all().delete()
+        Neighborhood.objects.all().delete()
+     
+    # Testing Delete Method  
+    def delete_business(self):
+        self.delete() 
+        
+    # Testing Update Method    
+    def test_update_business(self):
+        self.business.save_business()
+        self.business.update_business(self.business.id,'name')
+        update=Business.objects.get(name = 'name', business_desc = 'desc', 
+                                         profile = self.profile,
+                                         business_email = 'email',
+                                         neighborhood = self.neighborhood)
+        self.assertEqual(update.name,'name')                           
+        
+
