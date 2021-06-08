@@ -10,6 +10,8 @@ class Neighborhood(models.Model):
     location = models.CharField(max_length=50)
     neighborhood_desc=models.TextField() 
     occupants_count=models.IntegerField(default=0)
+    health_tell = models.IntegerField(null=True, blank=True)
+    police_number = models.IntegerField(null=True, blank=True)
     
     def __str__(self):
         return self.name
