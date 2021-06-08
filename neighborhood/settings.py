@@ -90,7 +90,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:4200',
+    'https://kasparov-creat.github.io/Neighborhood-API-Consumer',
 )
 
 ROOT_URLCONF = 'neighborhood.urls'
